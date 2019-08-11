@@ -1,0 +1,35 @@
+{
+  "name": "sidiro-warszawa-back-end",
+  "version": "1.0.0",
+  "description": "Back-end of mindsphere app for remote managment of SIVACON S8 switchboard",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "test": "jest  --watchAll --runInBand --detectOpenHandles --forceExit --coverage  "
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/WKolaj/SIDIRO-WARSZAWA-BACK-END.git"
+  },
+  "keywords": [
+    "SIDIRO",
+    "SIVACON",
+    "MINDSPHERE"
+  ],
+  "author": "Witold Kolaj",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/WKolaj/SIDIRO-WARSZAWA-BACK-END/issues"
+  },
+  "homepage": "https://github.com/WKolaj/SIDIRO-WARSZAWA-BACK-END#readme",
+  "dependencies": {
+    "config": "^3.2.2",
+    "express": "^4.17.1",
+    "express-async-errors": "^3.1.1",
+    "jest": "^24.8.0",
+    "joi": "^14.3.1",
+    "joi-objectid": "^2.0.0",
+    "lodash": "^4.17.15",
+    "winston": "^3.2.1"
+  }
+}
