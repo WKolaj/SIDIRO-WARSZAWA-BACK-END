@@ -59,3 +59,39 @@ module.exports.getToken = async () => {
 
   return result;
 };
+
+/**
+ * @description Method for setting data to mindsphere
+ */
+module.exports.postData = async (
+  date,
+  entityId,
+  propertySetName,
+  variableName,
+  variableValue
+) => {
+  let token = await module.exports.getToken();
+
+  let data = await request
+    .put(`https://gateway.eu1.mindsphere.io/api/iottimeseries/v3/timeseries`)
+    .set("Authorization", `Bearer ${token}`)
+    .set("Content-Type", "application/json")
+    .set("Accept", "application/json")
+    .send({
+      timeseries: [
+        {
+          entityId: entityId,
+          propertySetName: propertySetName,
+          data: [
+            {
+              _time: date.toISOString(),
+              [variableName]: variableValue,
+              [variableName + "_qc"]: 0
+            }
+          ]
+        }
+      ]
+    });
+
+  return data;
+};

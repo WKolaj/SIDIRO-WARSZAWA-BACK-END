@@ -18,4 +18,15 @@ router.get("/getToken2", async (req, res) => {
   return res.status(200).json({ data: data });
 });
 
+router.get("/setData", async (req, res) => {
+  let data = await mindsphereService.postData(
+    new Date(Date.now()),
+    "93b2623649ee48f4adf065521ddc2bf1",
+    "TEST_BACKEND",
+    "Variable",
+    Date.now().toString()
+  );
+
+  return res.status(200).json({ data: data });
+});
 module.exports = router;
