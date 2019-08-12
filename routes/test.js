@@ -2,13 +2,10 @@ const express = require("express");
 const router = express.Router();
 const {} = require("../utilities/utilities");
 const mindsphereService = require("../services/mindsphereService");
+const rgPZOService = require("../services/pzoRGService");
 
 router.get("/", async (req, res) => {
-  let data = await mindsphereService.getLastData(
-    "7e7105980c05449fae4e63a89b3952a4",
-    "TR1",
-    ["Active_energy_import"]
-  );
+  let data = await rgPZOService.getLastTotalEnergy();
   return res.status(200).json({ data: data });
 });
 
