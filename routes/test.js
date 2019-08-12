@@ -29,4 +29,17 @@ router.get("/setData", async (req, res) => {
 
   return res.status(200).json({ data: data });
 });
+
+router.get("/postEvent", async (req, res) => {
+  let data = await mindsphereService.postEvent(
+    new Date(Date.now()),
+    "93b2623649ee48f4adf065521ddc2bf1",
+    "test event",
+    20,
+    "Variable"
+  );
+
+  return res.status(200).json({ data: data });
+});
+
 module.exports = router;

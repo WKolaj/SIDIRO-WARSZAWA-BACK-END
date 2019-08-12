@@ -95,3 +95,30 @@ module.exports.postData = async (
 
   return data;
 };
+
+/**
+ * @description Method for setting data to mindsphere
+ */
+module.exports.postEvent = async (
+  date,
+  entityId,
+  description,
+  severity,
+  source
+) => {
+  let token = await module.exports.getToken();
+
+  let data = await request
+    .post(`https://gateway.eu1.mindsphere.io/api/eventmanagement/v3/events`)
+    .set("Authorization", `Bearer ${token}`)
+    .set("Content-Type", "application/json")
+    .send({
+      entityId: entityId,
+      timestamp: date.toISOString(),
+      description: description,
+      severity: severity,
+      source: source
+    });
+
+  return data;
+};
