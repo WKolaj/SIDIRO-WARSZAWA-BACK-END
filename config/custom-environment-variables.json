@@ -1,0 +1,7 @@
+{
+  "xSpaceAuthKey": "X_SPACE_AUTH_KEY",
+  "appName": "API_CREDENTIAlS_APP_NAME",
+  "appVersion": "API_CREDENTIALS_APP_VERSION",
+  "hostTenant": "API_CREDENTIALS_HOST_TENANT",
+  "userTenant": "API_CREDENTIALS_USER_TENANT"
+}

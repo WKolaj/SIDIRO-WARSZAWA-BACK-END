@@ -1,5 +1,5 @@
 {
-  "name": "sidiro-warszawa-back-end",
+  "name": "sidiro",
   "version": "1.0.0",
   "description": "Back-end of mindsphere app for remote managment of SIVACON S8 switchboard",
   "main": "server.js",
@@ -30,6 +30,7 @@
     "joi": "^14.3.1",
     "joi-objectid": "^2.0.0",
     "lodash": "^4.17.15",
+    "superagent": "^5.1.0",
     "winston": "^3.2.1"
   }
 }

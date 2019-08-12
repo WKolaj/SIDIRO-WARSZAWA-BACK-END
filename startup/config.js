@@ -9,6 +9,12 @@ let throwIfConfigDoesNotExist = configName => {
 module.exports = async function() {
   logger.info("initializing app configuration files...");
 
+  throwIfConfigDoesNotExist("xSpaceAuthKey");
+  throwIfConfigDoesNotExist("appName");
+  throwIfConfigDoesNotExist("appVersion");
+  throwIfConfigDoesNotExist("hostTenant");
+  throwIfConfigDoesNotExist("userTenant");
+
   throwIfConfigDoesNotExist("logging");
   throwIfConfigDoesNotExist("logging.info");
   throwIfConfigDoesNotExist("logging.info.path");
