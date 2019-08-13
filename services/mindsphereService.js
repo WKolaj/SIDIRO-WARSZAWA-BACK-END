@@ -27,7 +27,6 @@ let shouldTokenBeFetched = utcDate => {
  * @description Method for fetching new Token
  */
 let fetchNewToken = async () => {
-  console.log("Getting new token");
   let data = await request
     .post(
       `https://gateway.eu1.mindsphere.io/api/technicaltokenmanager/v3/oauth/token`

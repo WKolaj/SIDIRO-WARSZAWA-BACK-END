@@ -3,13 +3,18 @@ const router = express.Router();
 const {} = require("../utilities/utilities");
 const mindsphereService = require("../services/mindsphereService");
 const rgPZOService = require("../services/pzoRGService");
+const pzoPowermonitorService = require("../services/pzoPowermonitorService");
 
 let handler;
 
 router.get("/start", async (req, res) => {
   handler = setInterval(async () => {
-    let data = await rgPZOService.getLastTotalEnergy();
-    console.log(data);
+    let now = Date.now();
+    await pzoPowermonitorService.sendEvent(
+      new Date(now),
+      `test event from date ${new Date(now).toISOString()}`,
+      20
+    );
   }, 5000);
   return res.status(200).send("Started");
 });
