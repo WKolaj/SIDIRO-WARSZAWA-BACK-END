@@ -7,6 +7,60 @@ let appVersion = config.get("appVersion");
 let hostTenant = config.get("hostTenant");
 let userTenant = config.get("userTenant");
 
+let token;
+let tokenExpireDateUTC;
+//Offset of switching token to new one
+let tokenExpireDateOffsetUTC = 100;
+
+/**
+ * @description Method for check if new token should be fetched
+ */
+let shouldTokenBeFetched = utcDate => {
+  if (!token || !tokenExpireDateUTC) return true;
+
+  if (utcDate >= tokenExpireDateUTC - tokenExpireDateOffsetUTC) return true;
+
+  return false;
+};
+
+/**
+ * @description Method for fetching new Token
+ */
+let fetchNewToken = async () => {
+  console.log("Getting new token");
+  let data = await request
+    .post(
+      `https://gateway.eu1.mindsphere.io/api/technicaltokenmanager/v3/oauth/token`
+    )
+    .set("Content-Type", "application/json")
+    .set("X-SPACE-AUTH-KEY", `Basic ${xSpaceAuthKey}`)
+    .set("Accept", "application/json")
+    .send({
+      appName: appName,
+      appVersion: appVersion,
+      hostTenant: hostTenant,
+      userTenant: userTenant
+    });
+
+  let newTokenResult = JSON.parse(data.text);
+
+  token = newTokenResult["access_token"];
+  tokenExpireDateUTC =
+    newTokenResult["timestamp"] / 1000 + newTokenResult["expires_in"];
+};
+
+/**
+ * @description Method for getting current token or getting new one from Mindsphere
+ */
+let getToken = async () => {
+  let utcToken = Date.now() / 1000;
+  if (shouldTokenBeFetched(utcToken)) {
+    await fetchNewToken();
+  }
+
+  return token;
+};
+
 let prepareVariablesString = variables => {
   let stringToReturn = "";
 
@@ -22,7 +76,7 @@ let prepareVariablesString = variables => {
  * @description Method for getting last data of given variables - FROM LAST GATEWAY PUSH!
  */
 module.exports.getLastData = async (assetId, aspectName, variables) => {
-  let token = await module.exports.getToken();
+  let token = await getToken();
 
   let variablesString = prepareVariablesString(variables);
 
@@ -37,30 +91,6 @@ module.exports.getLastData = async (assetId, aspectName, variables) => {
 };
 
 /**
- * @description Method for getting current Token
- */
-module.exports.getToken = async () => {
-  let data = await request
-    .post(
-      `https://gateway.eu1.mindsphere.io/api/technicaltokenmanager/v3/oauth/token`
-    )
-    .set("Content-Type", "application/json")
-    .set("X-SPACE-AUTH-KEY", `Basic ${xSpaceAuthKey}`)
-    .set("Accept", "application/json")
-    .send({
-      appName: appName,
-      appVersion: appVersion,
-      hostTenant: hostTenant,
-      userTenant: userTenant
-    });
-
-  let result = data.text;
-  if (data.text) result = JSON.parse(data.text)["access_token"];
-
-  return result;
-};
-
-/**
  * @description Method for setting data to mindsphere
  */
 module.exports.postData = async (
@@ -70,7 +100,7 @@ module.exports.postData = async (
   variableName,
   variableValue
 ) => {
-  let token = await module.exports.getToken();
+  let token = await getToken();
 
   let data = await request
     .put(`https://gateway.eu1.mindsphere.io/api/iottimeseries/v3/timeseries`)
@@ -106,7 +136,7 @@ module.exports.postEvent = async (
   severity,
   source
 ) => {
-  let token = await module.exports.getToken();
+  let token = await getToken();
 
   let data = await request
     .post(`https://gateway.eu1.mindsphere.io/api/eventmanagement/v3/events`)

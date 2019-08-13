@@ -4,9 +4,20 @@ const {} = require("../utilities/utilities");
 const mindsphereService = require("../services/mindsphereService");
 const rgPZOService = require("../services/pzoRGService");
 
-router.get("/", async (req, res) => {
-  let data = await rgPZOService.getLastTotalEnergy();
-  return res.status(200).json({ data: data });
+let handler;
+
+router.get("/start", async (req, res) => {
+  handler = setInterval(async () => {
+    let data = await rgPZOService.getLastTotalEnergy();
+    console.log(data);
+  }, 5000);
+  return res.status(200).send("Started");
+});
+
+router.get("/stop", async (req, res) => {
+  if (handler) clearInterval(handler);
+
+  return res.status(200).send("Started");
 });
 
 router.get("/getToken2", async (req, res) => {
