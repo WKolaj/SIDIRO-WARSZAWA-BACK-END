@@ -15,6 +15,7 @@ module.exports = async function(workingDirName) {
   await require("./logs")();
   await require("./config")();
   await require("./validation")();
+  await require("./powermonitor")();
 
   const port = process.env.PORT || config.get("port");
 

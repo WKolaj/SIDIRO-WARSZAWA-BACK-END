@@ -15,6 +15,12 @@ module.exports = async function() {
   throwIfConfigDoesNotExist("hostTenant");
   throwIfConfigDoesNotExist("userTenant");
 
+  throwIfConfigDoesNotExist("powermonitorDirName");
+  throwIfConfigDoesNotExist("powermonitorFileName");
+
+  throwIfConfigDoesNotExist("emailAccount");
+  throwIfConfigDoesNotExist("emailPassword");
+
   throwIfConfigDoesNotExist("logging");
   throwIfConfigDoesNotExist("logging.info");
   throwIfConfigDoesNotExist("logging.info.path");

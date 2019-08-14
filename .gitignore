@@ -59,3 +59,9 @@ typings/
 
 # next.js build output
 .next
+
+#test container for jest testing
+_testContainer
+
+#powermonitorDir
+powermonitorDir

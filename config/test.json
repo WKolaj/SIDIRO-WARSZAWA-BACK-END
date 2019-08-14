@@ -1,4 +1,6 @@
 {
+  "powermonitorDirName": "_testContainer/powermonitor",
+  "powermonitorFileName": "powermonitor.json",
   "logging": {
     "info": {
       "path": "project/test/info.log",

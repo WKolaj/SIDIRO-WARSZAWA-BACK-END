@@ -1,12 +1,12 @@
 const logger = require("../logger/logger");
 const error = require("../middleware/error");
-const test = require("../routes/test");
+const powermonitor = require("../routes/powermonitor");
 
 module.exports = async function(app) {
   logger.info("initializing routes...");
 
-  app.use("/customApi/test", test);
-  logger.info("Test route initialized");
+  app.use("/customApi/powermonitor", powermonitor);
+  logger.info("Powermonitor route initialized");
 
   app.use(error);
 

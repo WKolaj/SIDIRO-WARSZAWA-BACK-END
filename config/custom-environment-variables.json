@@ -3,5 +3,7 @@
   "appName": "API_CREDENTIAlS_APP_NAME",
   "appVersion": "API_CREDENTIALS_APP_VERSION",
   "hostTenant": "API_CREDENTIALS_HOST_TENANT",
-  "userTenant": "API_CREDENTIALS_USER_TENANT"
+  "userTenant": "API_CREDENTIALS_USER_TENANT",
+  "emailAccount": "EMAIL_ACCOUNT",
+  "emailPassword": "EMAIL_PASSWORD"
 }

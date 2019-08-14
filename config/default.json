@@ -1,5 +1,7 @@
 {
   "port": 5000,
+  "powermonitorDirName": "powermonitorDir",
+  "powermonitorFileName": "powermonitor.json",
   "logging": {
     "info": {
       "path": "logs/info.log",
