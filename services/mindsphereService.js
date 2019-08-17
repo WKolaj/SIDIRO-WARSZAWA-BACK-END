@@ -151,3 +151,27 @@ module.exports.postEvent = async (
 
   return data;
 };
+
+/**
+ * @description Method for getting data from given time range
+ */
+module.exports.getDataFromRange = async (
+  assetId,
+  aspectName,
+  variables,
+  dateFrom,
+  dateTo
+) => {
+  let token = await getToken();
+
+  let variablesString = prepareVariablesString(variables);
+
+  let data = await request
+    .get(
+      `https://gateway.eu1.mindsphere.io/api/iottimeseries/v3/timeseries/${assetId}/${aspectName}?select=${variablesString}&from=${dateFrom}&to=${dateTo}&limit=2000`
+    )
+    .set("Authorization", `Bearer ${token}`)
+    .set("Accept", "application/json");
+
+  return data;
+};

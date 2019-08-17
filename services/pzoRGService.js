@@ -1,8 +1,10 @@
 const mindsphereService = require("./mindsphereService");
 const pzoRGAssetId = "7e7105980c05449fae4e63a89b3952a4";
+const pzoRGEntityId = "7e7105980c05449fae4e63a89b3952a4";
 const tr1AspectName = "TR1";
 const tr2AspectName = "TR2";
 const activeEnergyVariableName = "Active_energy_import";
+const activePowerVariableName = "Total_active_power_import_15_min";
 
 /**
  * @description Method for getting last data of given variables - FROM LAST GATEWAY PUSH!
