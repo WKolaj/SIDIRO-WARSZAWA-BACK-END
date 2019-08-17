@@ -1,8 +1,8 @@
 const mindsphereService = require("./mindsphereService");
 //For testing
-//const powermonitorEntityId = "67c6e23ec82e4213ac888368c484c128";
+const powermonitorEntityId = "67c6e23ec82e4213ac888368c484c128";
 //For production
-const powermonitorEntityId = "82b4893792e74f959028ef2afca51bf4";
+//const powermonitorEntityId = "82b4893792e74f959028ef2afca51bf4";
 const activePowerPropertySetName = "PZO_Powermonitor";
 const activePowerVariableName = "Total_active_power_15_min";
 
