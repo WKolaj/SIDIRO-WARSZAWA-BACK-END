@@ -11,6 +11,7 @@ const {
   checkIfDirectoryExistsAsync
 } = require("../utilities/utilities");
 const pzoRGService = require("../services/pzoRGService");
+const { exists } = require("../utilities/utilities");
 
 let powermonitor = new PowermonitorRG(powermonitorFilePath);
 let powermonitorRefreshingHandler = null;
@@ -35,6 +36,10 @@ module.exports.startRefreshingPowermonitor = async () => {
   powermonitorRefreshingHandler = setInterval(async () => {
     try {
       let newData = await pzoRGService.getLastTotalEnergy();
+
+      //Returning if there is no new data
+      if (!exists(newData.timestamp) || !exists(newData.value)) return;
+
       let dateUTC = Math.round(newData.timestamp / 1000);
       let value = Math.round(newData.value);
 

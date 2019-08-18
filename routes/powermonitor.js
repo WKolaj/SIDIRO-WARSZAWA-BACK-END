@@ -7,6 +7,7 @@ const { exists } = require("../utilities/utilities");
 const {
   getTotalPowerFromRange
 } = require("../services/pzoPowermonitorService");
+const { getLastTotalEnergy } = require("../services/pzoRGService");
 
 router.get("/", async (req, res) => {
   return res.status(200).send(project.powermonitor.Payload);
@@ -36,6 +37,11 @@ router.get("/totalActivePower", async (req, res) => {
       throw err;
     }
   }
+});
+
+router.get("/test1", async (req, res) => {
+  let data = await getLastTotalEnergy();
+  return res.status(200).send(data);
 });
 
 module.exports = router;

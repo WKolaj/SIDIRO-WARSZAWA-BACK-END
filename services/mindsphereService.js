@@ -12,6 +12,8 @@ let tokenExpireDateUTC;
 //Offset of switching token to new one
 let tokenExpireDateOffsetUTC = 100;
 
+let { exists } = require("../utilities/utilities");
+
 /**
  * @description Method for check if new token should be fetched
  */
@@ -60,33 +62,51 @@ let getToken = async () => {
   return token;
 };
 
-let prepareVariablesString = variables => {
-  let stringToReturn = "";
+/**
+ * @description Method for getting last data of given variable - FROM LAST GATEWAY PUSH!
+ */
+module.exports.getLastData = async (assetId, aspectName, variable) => {
+  let last1000Data = await module.exports.getLast1000Data(
+    assetId,
+    aspectName,
+    variable
+  );
 
-  for (let i = 0; i < variables.length; i++) {
-    if (i !== 0) stringToReturn += ",";
-    stringToReturn += variables[i];
+  if (!exists(last1000Data) || last1000Data === []) return null;
+
+  //Finding highest date index
+  let indexWithHighestDate = 0;
+  let highestDate = new Date(last1000Data[0]["_time"]);
+
+  for (let i = 1; i < last1000Data.length; i++) {
+    let newDate = new Date(last1000Data[i]["_time"]);
+    if (newDate.getTime() > highestDate.getTime()) {
+      highestDate = newDate;
+      indexWithHighestDate = i;
+    }
   }
 
-  return stringToReturn;
+  return last1000Data[indexWithHighestDate];
 };
 
 /**
- * @description Method for getting last data of given variables - FROM LAST GATEWAY PUSH!
+ * @description Method for getting last data of given variable - FROM LAST GATEWAY PUSH!
  */
-module.exports.getLastData = async (assetId, aspectName, variables) => {
+module.exports.getLast1000Data = async (assetId, aspectName, variable) => {
   let token = await getToken();
 
-  let variablesString = prepareVariablesString(variables);
+  let now = Date.now();
+  let endDate = new Date(now);
+  let beginDate = new Date(now - 1000 * 1000);
 
   let data = await request
     .get(
-      `https://gateway.eu1.mindsphere.io/api/iottimeseries/v3/timeseries/${assetId}/${aspectName}?select=${variablesString}`
+      `https://gateway.eu1.mindsphere.io/api/iottimeseries/v3/timeseries/${assetId}/${aspectName}?select=${variable}&from=${beginDate.toISOString()}&to=${endDate.toISOString()}&limit=1000`
     )
     .set("Authorization", `Bearer ${token}`)
     .set("Accept", "application/json");
 
-  return data;
+  return JSON.parse(data.text);
 };
 
 /**
@@ -158,17 +178,15 @@ module.exports.postEvent = async (
 module.exports.getDataFromRange = async (
   assetId,
   aspectName,
-  variables,
+  variable,
   dateFrom,
   dateTo
 ) => {
   let token = await getToken();
 
-  let variablesString = prepareVariablesString(variables);
-
   let data = await request
     .get(
-      `https://gateway.eu1.mindsphere.io/api/iottimeseries/v3/timeseries/${assetId}/${aspectName}?select=${variablesString}&from=${dateFrom}&to=${dateTo}&limit=2000`
+      `https://gateway.eu1.mindsphere.io/api/iottimeseries/v3/timeseries/${assetId}/${aspectName}?select=${variable}&from=${dateFrom}&to=${dateTo}&limit=2000`
     )
     .set("Authorization", `Bearer ${token}`)
     .set("Accept", "application/json");

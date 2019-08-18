@@ -39,7 +39,7 @@ module.exports.getTotalPowerFromRange = async (fromDate, toDate) => {
   let data = await mindsphereService.getDataFromRange(
     powermonitorEntityId,
     activePowerPropertySetName,
-    [activePowerVariableName],
+    activePowerVariableName,
     fromDate,
     toDate
   );
