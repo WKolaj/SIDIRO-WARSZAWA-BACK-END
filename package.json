@@ -28,6 +28,7 @@
     "express-async-errors": "^3.1.1",
     "joi": "^14.3.1",
     "joi-objectid": "^2.0.0",
+    "jsonwebtoken": "^8.5.1",
     "lodash": "^4.17.15",
     "nodemailer": "^6.3.0",
     "superagent": "^5.1.0",

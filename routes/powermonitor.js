@@ -8,12 +8,13 @@ const {
   getTotalPowerFromRange
 } = require("../services/pzoPowermonitorService");
 const { getLastTotalEnergy } = require("../services/pzoRGService");
+const isAdmin = require("../middleware/isAdmin");
 
 router.get("/", async (req, res) => {
   return res.status(200).send(project.powermonitor.Payload);
 });
 
-router.put("/", [validate.edit], async (req, res) => {
+router.put("/", [isAdmin, validate.edit], async (req, res) => {
   //Editing powermonitor and returning it
   let result = await project.powermonitor.editWithPayload(req.body);
   return res.status(200).send(result.Payload);

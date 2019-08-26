@@ -5,5 +5,6 @@
   "hostTenant": "API_CREDENTIALS_HOST_TENANT",
   "userTenant": "API_CREDENTIALS_USER_TENANT",
   "emailAccount": "EMAIL_ACCOUNT",
-  "emailPassword": "EMAIL_PASSWORD"
+  "emailPassword": "EMAIL_PASSWORD",
+  "adminUsers": "ADMIN_USERS"
 }

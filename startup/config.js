@@ -14,6 +14,7 @@ module.exports = async function() {
   throwIfConfigDoesNotExist("appVersion");
   throwIfConfigDoesNotExist("hostTenant");
   throwIfConfigDoesNotExist("userTenant");
+  throwIfConfigDoesNotExist("adminUsers");
 
   throwIfConfigDoesNotExist("powermonitorDirName");
   throwIfConfigDoesNotExist("powermonitorFileName");
