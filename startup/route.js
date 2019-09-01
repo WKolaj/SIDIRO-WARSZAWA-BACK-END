@@ -2,6 +2,7 @@ const logger = require("../logger/logger");
 const error = require("../middleware/error");
 const powermonitor = require("../routes/powermonitor");
 const user = require("../routes/user");
+const subscribe = require("../routes/subscribe");
 
 module.exports = async function(app) {
   logger.info("initializing routes...");
@@ -11,6 +12,9 @@ module.exports = async function(app) {
 
   app.use("/customApi/user", user);
   logger.info("User route initialized");
+
+  app.use("/customApi/notifySubscribe", subscribe);
+  logger.info("Subscribe route initialized");
 
   app.use(error);
 

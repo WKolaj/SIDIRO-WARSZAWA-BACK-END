@@ -2,6 +2,9 @@
   "port": 5000,
   "powermonitorDirName": "powermonitorDir",
   "powermonitorFileName": "powermonitor.json",
+  "notifySubscriberDirName": "notifySubscriberDir",
+  "notifySubscriberFileName": "notifySubscriber.json",
+  "notifySubscriberPowermonitorGroupName": "Powermonitor",
   "logging": {
     "info": {
       "path": "logs/info.log",

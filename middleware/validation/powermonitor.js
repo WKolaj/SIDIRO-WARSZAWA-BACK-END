@@ -14,6 +14,7 @@ let powermonitorEditSchema = Joi.object().keys({
     .max(1000000000),
   sendingEventsEnabled: Joi.boolean(),
   sendingEmailsEnabled: Joi.boolean(),
+  notificationsEnabled: Joi.boolean(),
   recipients: Joi.array()
 });
 

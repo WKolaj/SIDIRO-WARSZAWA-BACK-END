@@ -65,3 +65,6 @@ _testContainer
 
 #powermonitorDir
 powermonitorDir
+
+#notifySubscriberDir
+notifySubscriberDir

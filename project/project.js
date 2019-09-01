@@ -1,4 +1,5 @@
 const PowermonitorRG = require("../classes/PowermonitorRG");
+const NotifySubscriber = require("../classes/NotifySubscriber");
 const config = require("config");
 const path = require("path");
 const logger = require("../logger/logger");
@@ -6,6 +7,7 @@ let powermonitorFilePath = path.join(
   config.get("powermonitorDirName"),
   config.get("powermonitorFileName")
 );
+
 const {
   createDirAsync,
   checkIfDirectoryExistsAsync
@@ -16,7 +18,11 @@ const { exists } = require("../utilities/utilities");
 let powermonitor = new PowermonitorRG(powermonitorFilePath);
 let powermonitorRefreshingHandler = null;
 
-module.exports.powermonitor = powermonitor;
+let notifySubscriber = new NotifySubscriber();
+
+module.exports.getPowermonitor = () => {
+  return powermonitor;
+};
 
 module.exports.initPowermonitor = async () => {
   let powermonitorDirExists = await checkIfDirectoryExistsAsync(
@@ -53,4 +59,22 @@ module.exports.startRefreshingPowermonitor = async () => {
 module.exports.stopRefreshingPowermonitor = async () => {
   if (powermonitorRefreshingHandler)
     clearInterval(powermonitorRefreshingHandler);
+};
+
+module.exports.getNotifySubscriber = () => {
+  return notifySubscriber;
+};
+
+module.exports.initNotifySubscriber = async () => {
+  let notifySubscriberDirExists = await checkIfDirectoryExistsAsync(
+    config.get("notifySubscriberDirName")
+  );
+  if (!notifySubscriberDirExists)
+    await createDirAsync(config.get("notifySubscriberDirName"));
+
+  try {
+    await notifySubscriber.init(config.get("notifySubscriberDirName"));
+  } catch (err) {
+    logger.error(err.message, err);
+  }
 };

@@ -18,6 +18,9 @@ module.exports = async function() {
 
   throwIfConfigDoesNotExist("powermonitorDirName");
   throwIfConfigDoesNotExist("powermonitorFileName");
+  throwIfConfigDoesNotExist("notifySubscriberDirName");
+  throwIfConfigDoesNotExist("notifySubscriberFileName");
+  throwIfConfigDoesNotExist("notifySubscriberPowermonitorGroupName");
 
   throwIfConfigDoesNotExist("emailAccount");
   throwIfConfigDoesNotExist("emailPassword");

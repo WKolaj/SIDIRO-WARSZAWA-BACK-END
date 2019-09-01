@@ -3,12 +3,14 @@ const pzoPowermonitorService = require("../services/pzoPowermonitorService");
 const MailSender = require("./MailSender");
 const logger = require("../logger/logger");
 const { exists } = require("../utilities/utilities");
-
+const project = require("../project/project");
+const config = require("config");
 class PowermonitorRG extends Powermonitor {
   constructor(filePath) {
     super(filePath);
     this._sendingEventsEnabled = false;
     this._sendingEmailsEnabled = false;
+    this._notificationsEnabled = false;
     this._recipients = [];
   }
 
@@ -49,6 +51,20 @@ class PowermonitorRG extends Powermonitor {
         }
       }
     }
+
+    if (this.NotificationsEnabled) {
+      project
+        .getNotifySubscriber()
+        .sendNotifyMessage(
+          config.get("notifySubscriberPowermonitorGroupName"),
+          {
+            title: "Strażnik mocy - alarm",
+            body: `Alarm przekroczenia mocy - przewidywana moc ${(
+              predictedTotalActivePower / 1000
+            ).toFixed(2)} kW`
+          }
+        );
+    }
   }
 
   /**
@@ -83,6 +99,20 @@ class PowermonitorRG extends Powermonitor {
           logger.error(err.message, err);
         }
       }
+    }
+
+    if (this.NotificationsEnabled) {
+      project
+        .getNotifySubscriber()
+        .sendNotifyMessage(
+          config.get("notifySubscriberPowermonitorGroupName"),
+          {
+            title: "Strażnik mocy - ostrzeżenie",
+            body: `Ostrzeżenie przed przekroczeniem mocy - przewidywana moc ${(
+              predictedTotalActivePower / 1000
+            ).toFixed(2)} kW`
+          }
+        );
     }
   }
 
@@ -119,6 +149,20 @@ class PowermonitorRG extends Powermonitor {
         }
       }
     }
+
+    if (this.NotificationsEnabled) {
+      project
+        .getNotifySubscriber()
+        .sendNotifyMessage(
+          config.get("notifySubscriberPowermonitorGroupName"),
+          {
+            title: "Strażnik mocy - wyłączenie alarmu",
+            body: `Przewidywana moc poniżej progu alarmu - wartość ${(
+              predictedTotalActivePower / 1000
+            ).toFixed(2)} kW`
+          }
+        );
+    }
   }
 
   /**
@@ -154,6 +198,20 @@ class PowermonitorRG extends Powermonitor {
         }
       }
     }
+
+    if (this.NotificationsEnabled) {
+      project
+        .getNotifySubscriber()
+        .sendNotifyMessage(
+          config.get("notifySubscriberPowermonitorGroupName"),
+          {
+            title: "Strażnik mocy - wyłączenie ostrzeżenia",
+            body: `Przewidywana moc poniżej progu ostrzeżenia - wartość ${(
+              predictedTotalActivePower / 1000
+            ).toFixed(2)} kW`
+          }
+        );
+    }
   }
 
   /**
@@ -169,6 +227,9 @@ class PowermonitorRG extends Powermonitor {
     if (exists(filePayload.sendingEmailsEnabled));
     this._sendingEmailsEnabled = filePayload.sendingEmailsEnabled;
 
+    if (exists(filePayload.notificationsEnabled));
+    this._notificationsEnabled = filePayload.notificationsEnabled;
+
     if (exists(filePayload.recipients));
     this._recipients = filePayload.recipients;
   }
@@ -179,6 +240,10 @@ class PowermonitorRG extends Powermonitor {
 
   get SendingEmailsEnabled() {
     return this._sendingEmailsEnabled;
+  }
+
+  get NotificationsEnabled() {
+    return this._notificationsEnabled;
   }
 
   get Recipients() {
@@ -193,6 +258,7 @@ class PowermonitorRG extends Powermonitor {
     superPayload.sendingEventsEnabled = this.SendingEventsEnabled;
     superPayload.recipients = this.Recipients;
     superPayload.sendingEmailsEnabled = this.SendingEmailsEnabled;
+    superPayload.notificationsEnabled = this.NotificationsEnabled;
 
     return superPayload;
   }
@@ -200,6 +266,9 @@ class PowermonitorRG extends Powermonitor {
   async editWithPayload(payload) {
     if (exists(payload.sendingEventsEnabled))
       this._sendingEventsEnabled = payload.sendingEventsEnabled;
+
+    if (exists(payload.notificationsEnabled))
+      this._notificationsEnabled = payload.notificationsEnabled;
 
     if (exists(payload.sendingEmailsEnabled))
       this._sendingEmailsEnabled = payload.sendingEmailsEnabled;

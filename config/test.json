@@ -17,5 +17,7 @@
       "maxsize": 10485760,
       "maxFiles": 10
     }
-  }
+  },
+  "notfyServerPublicKey": "BFwY3Ag_R5GOSnZNjVPHjE398MWCniEzb8gnLYdTCpdvzaaZq9eHuUWba0O5oh52VSlWrNny7ivjmjrt4hy13Ak",
+  "notfyServerPrivateKey": "X3ejUSInqYx6e77UL_NpQdild2EgHlT0Ay9SwrldjRw"
 }
