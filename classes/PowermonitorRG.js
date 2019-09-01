@@ -61,7 +61,8 @@ class PowermonitorRG extends Powermonitor {
             title: "Strażnik mocy - alarm",
             body: `Alarm przekroczenia mocy - przewidywana moc ${(
               predictedTotalActivePower / 1000
-            ).toFixed(2)} kW`
+            ).toFixed(2)} kW`,
+            icon: "/icon-512.png"
           }
         );
     }
@@ -110,7 +111,8 @@ class PowermonitorRG extends Powermonitor {
             title: "Strażnik mocy - ostrzeżenie",
             body: `Ostrzeżenie przed przekroczeniem mocy - przewidywana moc ${(
               predictedTotalActivePower / 1000
-            ).toFixed(2)} kW`
+            ).toFixed(2)} kW`,
+            icon: "/icon-512.png"
           }
         );
     }
@@ -159,7 +161,8 @@ class PowermonitorRG extends Powermonitor {
             title: "Strażnik mocy - wyłączenie alarmu",
             body: `Przewidywana moc poniżej progu alarmu - wartość ${(
               predictedTotalActivePower / 1000
-            ).toFixed(2)} kW`
+            ).toFixed(2)} kW`,
+            icon: "/icon-512.png"
           }
         );
     }
@@ -208,7 +211,8 @@ class PowermonitorRG extends Powermonitor {
             title: "Strażnik mocy - wyłączenie ostrzeżenia",
             body: `Przewidywana moc poniżej progu ostrzeżenia - wartość ${(
               predictedTotalActivePower / 1000
-            ).toFixed(2)} kW`
+            ).toFixed(2)} kW`,
+            icon: "/icon-512.png"
           }
         );
     }
