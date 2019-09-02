@@ -5,6 +5,11 @@ const logger = require("../logger/logger");
 const { exists } = require("../utilities/utilities");
 const project = require("../project/project");
 const config = require("config");
+
+const warningIcon = config.get("notifySubscriberWarningIcon");
+const alertIcon = config.get("notifySubscriberAlertIcon");
+const infoIcon = config.get("notifySubscriberInfoIcon");
+
 class PowermonitorRG extends Powermonitor {
   constructor(filePath) {
     super(filePath);
@@ -62,7 +67,7 @@ class PowermonitorRG extends Powermonitor {
             body: `Alarm przekroczenia mocy - przewidywana moc ${(
               predictedTotalActivePower / 1000
             ).toFixed(2)} kW`,
-            icon: "/icon-512.png"
+            icon: alertIcon
           }
         );
     }
@@ -112,7 +117,7 @@ class PowermonitorRG extends Powermonitor {
             body: `Ostrzeżenie przed przekroczeniem mocy - przewidywana moc ${(
               predictedTotalActivePower / 1000
             ).toFixed(2)} kW`,
-            icon: "/icon-512.png"
+            icon: warningIcon
           }
         );
     }
@@ -162,7 +167,7 @@ class PowermonitorRG extends Powermonitor {
             body: `Przewidywana moc poniżej progu alarmu - wartość ${(
               predictedTotalActivePower / 1000
             ).toFixed(2)} kW`,
-            icon: "/icon-512.png"
+            icon: infoIcon
           }
         );
     }
@@ -212,7 +217,7 @@ class PowermonitorRG extends Powermonitor {
             body: `Przewidywana moc poniżej progu ostrzeżenia - wartość ${(
               predictedTotalActivePower / 1000
             ).toFixed(2)} kW`,
-            icon: "/icon-512.png"
+            icon: infoIcon
           }
         );
     }

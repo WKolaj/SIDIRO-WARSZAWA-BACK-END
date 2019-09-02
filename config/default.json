@@ -5,6 +5,9 @@
   "notifySubscriberDirName": "notifySubscriberDir",
   "notifySubscriberFileName": "notifySubscriber.json",
   "notifySubscriberPowermonitorGroupName": "Powermonitor",
+  "notifySubscriberWarningIcon": "images/SIDIRO_WARNING.png",
+  "notifySubscriberAlertIcon": "images/SIDIRO_ALERT.png",
+  "notifySubscriberInfoIcon": "images/SIDIRO_INFO.png",
   "logging": {
     "info": {
       "path": "logs/info.log",

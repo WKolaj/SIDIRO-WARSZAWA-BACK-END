@@ -22,6 +22,10 @@ module.exports = async function() {
   throwIfConfigDoesNotExist("notifySubscriberFileName");
   throwIfConfigDoesNotExist("notifySubscriberPowermonitorGroupName");
 
+  throwIfConfigDoesNotExist("notifySubscriberWarningIcon");
+  throwIfConfigDoesNotExist("notifySubscriberAlertIcon");
+  throwIfConfigDoesNotExist("notifySubscriberInfoIcon");
+
   throwIfConfigDoesNotExist("emailAccount");
   throwIfConfigDoesNotExist("emailPassword");
 
