@@ -8,3 +8,15 @@ self.addEventListener("push", e => {
 
   self.registration.showNotification(data.title, options);
 });
+
+self.addEventListener("install", function(event) {
+  event.waitUntil(
+    caches.open("sidiroCache").then(function(cache) {
+      return cache.addAll([
+        "/images/SIDIRO_ALERT.png",
+        "/images/SIDIRO_INFO.png",
+        "/images/SIDIRO_WARNING.png"
+      ]);
+    })
+  );
+});
