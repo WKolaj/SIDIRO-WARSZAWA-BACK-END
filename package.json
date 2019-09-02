@@ -1,6 +1,6 @@
 {
   "name": "sidiro",
-  "version": "1.1.2",
+  "version": "1.2.0",
   "description": "Back-end of mindsphere app for remote managment of SIVACON S8 switchboard",
   "main": "server.js",
   "scripts": {
