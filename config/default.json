@@ -8,6 +8,8 @@
   "notifySubscriberWarningIcon": "images/SIDIRO_WARNING.png",
   "notifySubscriberAlertIcon": "images/SIDIRO_ALERT.png",
   "notifySubscriberInfoIcon": "images/SIDIRO_INFO.png",
+  "userScopeName": "sidiro.user",
+  "adminScopeName": "sidiro.admin",
   "logging": {
     "info": {
       "path": "logs/info.log",

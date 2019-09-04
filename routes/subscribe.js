@@ -2,8 +2,9 @@ const express = require("express");
 const router = express.Router();
 const project = require("../project/project");
 const isAdmin = require("../middleware/isAdmin");
+const isUser = require("../middleware/isUser");
 
-router.post("/:groupName", [isAdmin], async (req, res) => {
+router.post("/:groupName", [isUser, isAdmin], async (req, res) => {
   const subscription = req.body;
   const groupName = req.params.groupName;
 
@@ -14,7 +15,7 @@ router.post("/:groupName", [isAdmin], async (req, res) => {
   return res.status(200).send(result);
 });
 
-router.delete("/:groupName", [isAdmin], async (req, res) => {
+router.delete("/:groupName", [isUser, isAdmin], async (req, res) => {
   const subscription = req.body;
   const groupName = req.params.groupName;
 
@@ -25,7 +26,7 @@ router.delete("/:groupName", [isAdmin], async (req, res) => {
   return res.status(200).send(result);
 });
 
-router.post("/isRegistered/:groupName", async (req, res) => {
+router.post("/isRegistered/:groupName", [isUser], async (req, res) => {
   const subscription = req.body;
   const groupName = req.params.groupName;
 

@@ -9,18 +9,19 @@ const {
 } = require("../services/pzoPowermonitorService");
 const { getLastTotalEnergy } = require("../services/pzoRGService");
 const isAdmin = require("../middleware/isAdmin");
+const isUser = require("../middleware/isUser");
 
-router.get("/", async (req, res) => {
+router.get("/", [isUser], async (req, res) => {
   return res.status(200).send(project.getPowermonitor().Payload);
 });
 
-router.put("/", [isAdmin, validate.edit], async (req, res) => {
+router.put("/", [isUser, isAdmin, validate.edit], async (req, res) => {
   //Editing powermonitor and returning it
   let result = await project.getPowermonitor().editWithPayload(req.body);
   return res.status(200).send(result.Payload);
 });
 
-router.get("/totalActivePower", async (req, res) => {
+router.get("/totalActivePower", [isUser], async (req, res) => {
   //Validate time range given in query
   let timeRangeValidationResult = validateTimeRange(req);
   if (exists(timeRangeValidationResult))
@@ -38,11 +39,6 @@ router.get("/totalActivePower", async (req, res) => {
       throw err;
     }
   }
-});
-
-router.get("/test1", async (req, res) => {
-  let data = await getLastTotalEnergy();
-  return res.status(200).send(data);
 });
 
 module.exports = router;

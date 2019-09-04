@@ -6,7 +6,6 @@
   "userTenant": "API_CREDENTIALS_USER_TENANT",
   "emailAccount": "EMAIL_ACCOUNT",
   "emailPassword": "EMAIL_PASSWORD",
-  "adminUsers": "ADMIN_USERS",
   "notfyServerPublicKey": "NOTIFY_SERVER_PUBLIC_KEY",
   "notfyServerPrivateKey": "NOTIFY_SERVER_PRIVATE_KEY"
 }
