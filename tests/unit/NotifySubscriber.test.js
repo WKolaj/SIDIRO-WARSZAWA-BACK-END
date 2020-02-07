@@ -316,12 +316,16 @@ describe("NotifySubscriber", () => {
       expect(webpush.sendNotification.mock.calls[0][0]).toEqual(
         initialSubscribers[group][0]
       );
-      expect(webpush.sendNotification.mock.calls[0][1]).toEqual(content);
+      expect(webpush.sendNotification.mock.calls[0][1]).toEqual(
+        JSON.stringify(content)
+      );
 
       expect(webpush.sendNotification.mock.calls[1][0]).toEqual(
         initialSubscribers[group][1]
       );
-      expect(webpush.sendNotification.mock.calls[1][1]).toEqual(content);
+      expect(webpush.sendNotification.mock.calls[1][1]).toEqual(
+        JSON.stringify(content)
+      );
     });
 
     it("should not call webpusher.sendNotification if there is no such group", async () => {
